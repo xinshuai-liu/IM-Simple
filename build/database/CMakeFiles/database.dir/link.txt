@@ -1,0 +1,2 @@
+/usr/bin/ar qc libdatabase.a CMakeFiles/database.dir/mysqldao.cpp.o CMakeFiles/database.dir/mysqlmanager.cpp.o CMakeFiles/database.dir/mysqlpool.cpp.o CMakeFiles/database.dir/redismanager.cpp.o
+/usr/bin/ranlib libdatabase.a

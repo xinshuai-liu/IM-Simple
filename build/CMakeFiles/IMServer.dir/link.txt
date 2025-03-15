@@ -1,0 +1,1 @@
+/usr/bin/c++  -O0 -Wall -g2 -ggdb CMakeFiles/IMServer.dir/main.cpp.o -o IMServer  common/libcommon.a network/libnetwork.a database/libdatabase.a common/libcommon.a -ljsoncpp -lmysqlcppconn -lhiredis 

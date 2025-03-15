@@ -1,0 +1,2 @@
+/usr/bin/ar qc libnetwork.a CMakeFiles/network.dir/httpmanager.cpp.o CMakeFiles/network.dir/networkmanager.cpp.o CMakeFiles/network.dir/tcpsocket.cpp.o
+/usr/bin/ranlib libnetwork.a
