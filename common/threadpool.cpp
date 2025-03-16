@@ -1,19 +1,17 @@
 #include "threadpool.h"
 
 // 构造函数，启动工作线程
-ThreadPool::ThreadPool(size_t numThreads) : stop(false) {
+ThreadPool::ThreadPool(size_t numThreads) : _stop(false) {
     for (size_t i = 0; i < numThreads; ++i) {
-        workers.emplace_back([this] {
+        _workers.emplace_back([this] {
             while (true) {
                 std::function<void()> task;
                 {
-                    std::unique_lock<std::mutex> lock(this->queueMutex);
-                    this->condition.wait(lock, [this] { return this->stop || !this->tasks.empty(); });
-                    if (this->stop && this->tasks.empty()) {
-                        return;
-                    }
-                    task = std::move(this->tasks.front());
-                    this->tasks.pop();
+                    std::unique_lock<std::mutex> lock(_queueMutex);
+                    _condition.wait(lock, [this] { return _stop || !_tasks.empty(); });
+                    if (_stop && _tasks.empty()) return;
+                    task = std::move(_tasks.front());
+                    _tasks.pop();
                 }
                 task();
             }
@@ -23,38 +21,28 @@ ThreadPool::ThreadPool(size_t numThreads) : stop(false) {
 
 // 析构函数，停止所有线程
 ThreadPool::~ThreadPool() {
-    stop = true;
-    condition.notify_all();
-    for (std::thread& worker : workers) {
+    {
+        std::unique_lock<std::mutex> lock(_queueMutex);
+        _stop = true;
+    }
+    _condition.notify_all();
+    for (std::thread& worker : _workers) {
         worker.join();
     }
 }
 
-// 提交任务到线程池
-template<class F, class... Args>
-auto ThreadPool::enqueue(F&& f, Args&&... args) -> std::future<typename std::result_of<F(Args...)>::type> {
-    using return_type = typename std::result_of<F(Args...)>::type;
-
-    auto task = std::make_shared<std::packaged_task<return_type()>>(
-        std::bind(std::forward<F>(f), std::forward<Args>(args)...)
-    );
-
-    std::future<return_type> res = task->get_future();
+void ThreadPool::enqueue(std::function<void()> task) {
     {
-        std::unique_lock<std::mutex> lock(queueMutex);
-
-        // 不允许在停止线程池后添加任务
-        if (stop) {
+        std::unique_lock<std::mutex> lock(_queueMutex);
+        if (_stop) {
             throw std::runtime_error("enqueue on stopped ThreadPool");
         }
-
-        tasks.emplace([task]() { (*task)(); });
+        _tasks.emplace(task);
     }
-    condition.notify_one();
-    return res;
+    _condition.notify_one();
 }
 
 // 获取线程池中线程的数量
 size_t ThreadPool::getThreadCount() const {
-    return workers.size();
+    return _workers.size();
 }

@@ -1,14 +1,24 @@
 #include "./networkmanager.h"
 #include "networkmanager.h"
 
-int a = 0;
-
 NetworkManager::NetworkManager() {
     _flag = true;
     registerHandler();
 }
 
 NetworkManager::~NetworkManager() {
+}
+
+void NetworkManager::run(const std::string& ip, int port) {
+    try {
+        _epoll.monitor(ip, port);
+        _epoll.setRecvEventHandler([this](std::string data, int fd) {recvDataHandler(data, fd);});
+        _epoll.run(_flag);
+    }
+    catch (std::exception& exp) {
+        std::cout << "recvDate: " << exp.what() << std::endl;
+    }
+
 }
 
 void NetworkManager::registerHandler() {
@@ -23,23 +33,14 @@ void NetworkManager::registerHandler() {
         }));
 }
 
-std::string NetworkManager::recvData(const std::string& ip, int port) {
+void NetworkManager::recvDataHandler(std::string data, int fd) {
+    std::cout << data << std::endl;
 
-    std::string data;
-
-    _serverSock.create();
-    _serverSock.bind(ip, port);
-    _serverSock.listen(4);
-
-    while (_flag) {
-        TcpSocket cli = _serverSock.accept();
-        data = cli.recv();
-        if (HttpManager::isHttp(data)) {
-            cli.send(_handlers["http"](data));
-        } else {
-            _handlers["other"](data);
-        }
+    if (HttpManager::isHttp(data)) {
+        _epoll.send(_handlers["http"](data), fd);
+    } else {
+        _handlers["other"](data);
     }
 
-    return data;
 }
+

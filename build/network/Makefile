@@ -130,6 +130,30 @@ network/fast:
 	cd /home/xsl/Desktop/IM-Server01/build && $(MAKE) $(MAKESILENT) -f network/CMakeFiles/network.dir/build.make network/CMakeFiles/network.dir/build
 .PHONY : network/fast
 
+epoll.o: epoll.cpp.o
+.PHONY : epoll.o
+
+# target to build an object file
+epoll.cpp.o:
+	cd /home/xsl/Desktop/IM-Server01/build && $(MAKE) $(MAKESILENT) -f network/CMakeFiles/network.dir/build.make network/CMakeFiles/network.dir/epoll.cpp.o
+.PHONY : epoll.cpp.o
+
+epoll.i: epoll.cpp.i
+.PHONY : epoll.i
+
+# target to preprocess a source file
+epoll.cpp.i:
+	cd /home/xsl/Desktop/IM-Server01/build && $(MAKE) $(MAKESILENT) -f network/CMakeFiles/network.dir/build.make network/CMakeFiles/network.dir/epoll.cpp.i
+.PHONY : epoll.cpp.i
+
+epoll.s: epoll.cpp.s
+.PHONY : epoll.s
+
+# target to generate assembly for a file
+epoll.cpp.s:
+	cd /home/xsl/Desktop/IM-Server01/build && $(MAKE) $(MAKESILENT) -f network/CMakeFiles/network.dir/build.make network/CMakeFiles/network.dir/epoll.cpp.s
+.PHONY : epoll.cpp.s
+
 httpmanager.o: httpmanager.cpp.o
 .PHONY : httpmanager.o
 
@@ -211,6 +235,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... network"
+	@echo "... epoll.o"
+	@echo "... epoll.i"
+	@echo "... epoll.s"
 	@echo "... httpmanager.o"
 	@echo "... httpmanager.i"
 	@echo "... httpmanager.s"

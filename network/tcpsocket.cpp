@@ -1,17 +1,9 @@
-
-
 #include "tcpsocket.h"
-#include <stdexcept>
 
-#include <vector>
-#include <unistd.h>
-#include <arpa/inet.h>
-#include <fcntl.h>
 
-#include <iostream>
-#include <string.h>
+TcpSocket::TcpSocket(int fd) : _sockfd{ fd } {
 
-TcpSocket::TcpSocket() : _sockfd{ -1 } {}
+}
 
 TcpSocket::~TcpSocket() {
     if (_sockfd != -1) {
@@ -19,12 +11,13 @@ TcpSocket::~TcpSocket() {
     }
 }
 
-void TcpSocket::setNonBlocking() {
-    int flags = fcntl(_sockfd, F_GETFL, 0);
+void TcpSocket::setNonBlocking(int fd) {
+    int flags = fcntl(fd, F_GETFL, 0);
     if (flags == -1) {
+        std::cerr << "fcntl failed: " << strerror(errno) << std::endl;
         throw std::runtime_error("Failed to get file descriptor flags");
     }
-    if (fcntl(_sockfd, F_SETFL, flags | O_NONBLOCK) == -1) {
+    if (fcntl(fd, F_SETFL, flags | O_NONBLOCK) == -1) {
         throw std::runtime_error("Failed to set file descriptor to non-blocking");
     }
 }
@@ -60,45 +53,94 @@ void TcpSocket::listen(int backlog) {
     }
 }
 
-TcpSocket TcpSocket::accept() {
-    struct sockaddr_in client_addr;
-    socklen_t client_len = sizeof(client_addr);
-    int client_sockfd = ::accept(_sockfd, (struct sockaddr*)&client_addr, &client_len);
-    if (client_sockfd == -1) {
-        throw std::runtime_error("Failed to accept connection");
-    }
+int TcpSocket::accept(sockaddr_in* cliaddr) {
 
-    TcpSocket client_socket;
-    client_socket._sockfd = client_sockfd;
-    return client_socket;
+    sockaddr_in* cli_addr;
+    socklen_t client_len;
+    if (cliaddr == nullptr) {
+        sockaddr_in addr;
+        cli_addr = &addr;
+    } else {
+        cli_addr = cliaddr;
+    }
+    memset(cli_addr, 0, sizeof(&cli_addr));
+    client_len = sizeof(&cli_addr);
+    if (_sockfd == -1) {
+        throw std::runtime_error("socket server fd value : -1");
+    }
+    int clifd = ::accept(_sockfd, (struct sockaddr*)cli_addr, &client_len);
+    if (clifd == -1) {
+        if (errno == EAGAIN || errno == EWOULDBLOCK) {
+            return clifd;
+        } else {
+            throw std::runtime_error("Failed to accept connection");
+        }
+    }
+    return clifd;
 }
 
-void TcpSocket::send(const std::string& data) {
-    //if (data == "") return;
-    if (::send(_sockfd, data.c_str(), data.size(), 0) == -1) {
+void TcpSocket::send(const std::string& data, int fd) {
+    if (fd == -1) fd = _sockfd;
+
+    if (::send(fd, data.c_str(), data.size(), 0) == -1) {
         throw std::runtime_error("Failed to send data");
     }
 }
 
-std::string TcpSocket::recv() {
+std::string TcpSocket::recv(int fd) {
+    if (fd == -1) fd = _sockfd;
+
     const int buffer_size = 1024;
     std::vector<char> buffer(buffer_size);
     std::string result = "";
 
     while (true) {
-        ssize_t bytes_received = ::recv(_sockfd, buffer.data(), buffer.size(), 0);
+        ssize_t bytes_received = ::recv(fd, buffer.data(), buffer.size(), 0);
         if (bytes_received == -1) {
-            throw std::runtime_error("Failed to receive data");
+            if (errno == EAGAIN || errno == EWOULDBLOCK) {
+                // 非阻塞模式下，没有数据可读
+                break;
+            } else if (errno == ECONNRESET) {
+                std::cerr << "Connection reset by peer, fd: " << fd << std::endl;
+                break;
+            } else {
+                // 其他错误
+                throw std::runtime_error("Failed to receive data: " + std::string(strerror(errno)));
+            }
         } else if (bytes_received == 0) {
+            // 对端关闭连接
             break;
         } else {
+            // 成功读取数据
             result.append(buffer.data(), bytes_received);
-            if (bytes_received < buffer.size()) {
+
+            // 如果读取的数据小于缓冲区大小，说明没有更多数据可读
+            if (static_cast<size_t>(bytes_received) < buffer.size()) {
                 break;
             }
         }
     }
+
     return result;
+
+    // const int buffer_size = 1024;
+    // std::vector<char> buffer(buffer_size);
+    // std::string result = "";
+
+    // while (true) {
+    //     ssize_t bytes_received = ::recv(_sockfd, buffer.data(), buffer.size(), 0);
+    //     if (bytes_received == -1) {
+    //         throw std::runtime_error("Failed to receive data");
+    //     } else if (bytes_received == 0) {
+    //         break;
+    //     } else {
+    //         result.append(buffer.data(), bytes_received);
+    //         if (static_cast<long unsigned int>(bytes_received) < buffer.size()) {
+    //             break;
+    //         }
+    //     }
+    // }
+    // return result;
 }
 
 void TcpSocket::close(int sockfd) {
@@ -106,4 +148,8 @@ void TcpSocket::close(int sockfd) {
         ::close(sockfd);
         sockfd = -1;
     }
+}
+
+int TcpSocket::getSockfd() {
+    return _sockfd;
 }

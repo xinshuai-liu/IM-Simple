@@ -261,7 +261,6 @@ CMakeFiles/IMServer.dir/main.cpp.o: ../main.cpp \
   /usr/include/c++/11/stack \
   /usr/include/c++/11/bits/stl_stack.h \
   /usr/local/include/json/writer.h \
-  ../network/tcpsocket.h \
   ../network/httpmanager.h \
   /usr/include/c++/11/algorithm \
   /usr/include/c++/11/bits/stl_algo.h \
@@ -368,9 +367,48 @@ CMakeFiles/IMServer.dir/main.cpp.o: ../main.cpp \
   /usr/include/hiredis/alloc.h \
   /usr/include/c++/11/stdlib.h \
   ../common/singleton.h \
+  ../network/epoll.h \
+  /usr/include/x86_64-linux-gnu/sys/epoll.h \
+  /usr/include/x86_64-linux-gnu/bits/epoll.h \
+  /usr/include/fcntl.h \
+  /usr/include/x86_64-linux-gnu/bits/fcntl.h \
+  /usr/include/x86_64-linux-gnu/bits/fcntl-linux.h \
+  /usr/include/linux/falloc.h \
+  /usr/include/x86_64-linux-gnu/bits/stat.h \
+  /usr/include/x86_64-linux-gnu/bits/struct_stat.h \
+  /usr/include/c++/11/unordered_map \
+  /usr/include/c++/11/bits/hashtable.h \
+  /usr/include/c++/11/bits/hashtable_policy.h \
+  /usr/include/c++/11/bits/enable_special_members.h \
+  /usr/include/c++/11/bits/unordered_map.h \
+  ../common/threadpool.h \
+  /usr/include/c++/11/future \
+  /usr/include/c++/11/bits/atomic_futex.h \
   ../network/tcpsocket.h \
   ../common/singleton.h
 
+
+../network/tcpsocket.h:
+
+../common/threadpool.h:
+
+/usr/include/c++/11/bits/unordered_map.h:
+
+/usr/include/c++/11/bits/hashtable_policy.h:
+
+/usr/include/c++/11/bits/hashtable.h:
+
+/usr/include/c++/11/unordered_map:
+
+/usr/include/x86_64-linux-gnu/bits/struct_stat.h:
+
+/usr/include/x86_64-linux-gnu/bits/stat.h:
+
+/usr/include/x86_64-linux-gnu/bits/fcntl-linux.h:
+
+/usr/include/fcntl.h:
+
+../network/epoll.h:
 
 /usr/include/c++/11/stdlib.h:
 
@@ -506,7 +544,7 @@ CMakeFiles/IMServer.dir/main.cpp.o: ../main.cpp \
 
 ../network/httpmanager.h:
 
-../network/tcpsocket.h:
+/usr/include/x86_64-linux-gnu/bits/fcntl.h:
 
 /usr/local/include/json/writer.h:
 
@@ -622,6 +660,8 @@ CMakeFiles/IMServer.dir/main.cpp.o: ../main.cpp \
 
 /usr/include/c++/11/string:
 
+/usr/include/x86_64-linux-gnu/bits/epoll.h:
+
 /usr/include/boost/throw_exception.hpp:
 
 /usr/include/x86_64-linux-gnu/bits/types/time_t.h:
@@ -638,6 +678,8 @@ CMakeFiles/IMServer.dir/main.cpp.o: ../main.cpp \
 
 /usr/include/c++/11/exception:
 
+/usr/include/c++/11/bits/atomic_futex.h:
+
 /usr/include/c++/11/ext/string_conversions.h:
 
 /usr/include/c++/11/bits/exception_ptr.h:
@@ -645,6 +687,8 @@ CMakeFiles/IMServer.dir/main.cpp.o: ../main.cpp \
 /usr/include/asm-generic/socket.h:
 
 /usr/include/c++/11/bits/invoke.h:
+
+/usr/include/linux/falloc.h:
 
 /usr/include/x86_64-linux-gnu/bits/in.h:
 
@@ -810,6 +854,8 @@ CMakeFiles/IMServer.dir/main.cpp.o: ../main.cpp \
 
 /usr/include/c++/11/typeinfo:
 
+/usr/include/x86_64-linux-gnu/sys/epoll.h:
+
 /usr/include/c++/11/bits/sstream.tcc:
 
 /usr/include/c++/11/new:
@@ -855,6 +901,8 @@ CMakeFiles/IMServer.dir/main.cpp.o: ../main.cpp \
 /usr/include/x86_64-linux-gnu/asm/socket.h:
 
 /usr/include/x86_64-linux-gnu/bits/waitflags.h:
+
+/usr/include/c++/11/future:
 
 /usr/include/x86_64-linux-gnu/sys/types.h:
 
@@ -969,6 +1017,8 @@ CMakeFiles/IMServer.dir/main.cpp.o: ../main.cpp \
 /usr/include/x86_64-linux-gnu/bits/types/struct_tm.h:
 
 /usr/include/c++/11/bits/locale_facets.tcc:
+
+/usr/include/c++/11/bits/enable_special_members.h:
 
 /usr/include/c++/11/bits/basic_ios.tcc:
 

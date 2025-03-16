@@ -9,22 +9,26 @@
 #include <arpa/inet.h>
 #include <json/json.h>
 
-#include "./tcpsocket.h"
 #include "./httpmanager.h"
+#include "./epoll.h"
 #include "../common/singleton.h"
+
 
 class NetworkManager : public Singleton<NetworkManager> {
 public:
     ~NetworkManager();
+    void run(const std::string& ip, int port);
+
+
     void sendData(const std::string& data);
-    std::string recvData(const std::string& ip, int port);
+    void recvDataHandler(std::string data, int fd);
 
 private:
     friend  Singleton<NetworkManager>;
+    std::map<std::string, std::function<std::string(const std::string&)>> _handlers;
     NetworkManager();
     void registerHandler();
-    std::map<std::string, std::function<std::string(const std::string&)>> _handlers;
-    TcpSocket _serverSock;
+    Epoll _epoll;
     bool _flag;
 };
 

@@ -69,10 +69,24 @@ include network/CMakeFiles/network.dir/progress.make
 # Include the compile flags for this target's objects.
 include network/CMakeFiles/network.dir/flags.make
 
+network/CMakeFiles/network.dir/epoll.cpp.o: network/CMakeFiles/network.dir/flags.make
+network/CMakeFiles/network.dir/epoll.cpp.o: ../network/epoll.cpp
+network/CMakeFiles/network.dir/epoll.cpp.o: network/CMakeFiles/network.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/xsl/Desktop/IM-Server01/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object network/CMakeFiles/network.dir/epoll.cpp.o"
+	cd /home/xsl/Desktop/IM-Server01/build/network && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT network/CMakeFiles/network.dir/epoll.cpp.o -MF CMakeFiles/network.dir/epoll.cpp.o.d -o CMakeFiles/network.dir/epoll.cpp.o -c /home/xsl/Desktop/IM-Server01/network/epoll.cpp
+
+network/CMakeFiles/network.dir/epoll.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/network.dir/epoll.cpp.i"
+	cd /home/xsl/Desktop/IM-Server01/build/network && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/xsl/Desktop/IM-Server01/network/epoll.cpp > CMakeFiles/network.dir/epoll.cpp.i
+
+network/CMakeFiles/network.dir/epoll.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/network.dir/epoll.cpp.s"
+	cd /home/xsl/Desktop/IM-Server01/build/network && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/xsl/Desktop/IM-Server01/network/epoll.cpp -o CMakeFiles/network.dir/epoll.cpp.s
+
 network/CMakeFiles/network.dir/httpmanager.cpp.o: network/CMakeFiles/network.dir/flags.make
 network/CMakeFiles/network.dir/httpmanager.cpp.o: ../network/httpmanager.cpp
 network/CMakeFiles/network.dir/httpmanager.cpp.o: network/CMakeFiles/network.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/xsl/Desktop/IM-Server01/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object network/CMakeFiles/network.dir/httpmanager.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/xsl/Desktop/IM-Server01/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object network/CMakeFiles/network.dir/httpmanager.cpp.o"
 	cd /home/xsl/Desktop/IM-Server01/build/network && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT network/CMakeFiles/network.dir/httpmanager.cpp.o -MF CMakeFiles/network.dir/httpmanager.cpp.o.d -o CMakeFiles/network.dir/httpmanager.cpp.o -c /home/xsl/Desktop/IM-Server01/network/httpmanager.cpp
 
 network/CMakeFiles/network.dir/httpmanager.cpp.i: cmake_force
@@ -86,7 +100,7 @@ network/CMakeFiles/network.dir/httpmanager.cpp.s: cmake_force
 network/CMakeFiles/network.dir/networkmanager.cpp.o: network/CMakeFiles/network.dir/flags.make
 network/CMakeFiles/network.dir/networkmanager.cpp.o: ../network/networkmanager.cpp
 network/CMakeFiles/network.dir/networkmanager.cpp.o: network/CMakeFiles/network.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/xsl/Desktop/IM-Server01/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object network/CMakeFiles/network.dir/networkmanager.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/xsl/Desktop/IM-Server01/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object network/CMakeFiles/network.dir/networkmanager.cpp.o"
 	cd /home/xsl/Desktop/IM-Server01/build/network && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT network/CMakeFiles/network.dir/networkmanager.cpp.o -MF CMakeFiles/network.dir/networkmanager.cpp.o.d -o CMakeFiles/network.dir/networkmanager.cpp.o -c /home/xsl/Desktop/IM-Server01/network/networkmanager.cpp
 
 network/CMakeFiles/network.dir/networkmanager.cpp.i: cmake_force
@@ -100,7 +114,7 @@ network/CMakeFiles/network.dir/networkmanager.cpp.s: cmake_force
 network/CMakeFiles/network.dir/tcpsocket.cpp.o: network/CMakeFiles/network.dir/flags.make
 network/CMakeFiles/network.dir/tcpsocket.cpp.o: ../network/tcpsocket.cpp
 network/CMakeFiles/network.dir/tcpsocket.cpp.o: network/CMakeFiles/network.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/xsl/Desktop/IM-Server01/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object network/CMakeFiles/network.dir/tcpsocket.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/xsl/Desktop/IM-Server01/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object network/CMakeFiles/network.dir/tcpsocket.cpp.o"
 	cd /home/xsl/Desktop/IM-Server01/build/network && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT network/CMakeFiles/network.dir/tcpsocket.cpp.o -MF CMakeFiles/network.dir/tcpsocket.cpp.o.d -o CMakeFiles/network.dir/tcpsocket.cpp.o -c /home/xsl/Desktop/IM-Server01/network/tcpsocket.cpp
 
 network/CMakeFiles/network.dir/tcpsocket.cpp.i: cmake_force
@@ -113,6 +127,7 @@ network/CMakeFiles/network.dir/tcpsocket.cpp.s: cmake_force
 
 # Object files for target network
 network_OBJECTS = \
+"CMakeFiles/network.dir/epoll.cpp.o" \
 "CMakeFiles/network.dir/httpmanager.cpp.o" \
 "CMakeFiles/network.dir/networkmanager.cpp.o" \
 "CMakeFiles/network.dir/tcpsocket.cpp.o"
@@ -120,12 +135,13 @@ network_OBJECTS = \
 # External object files for target network
 network_EXTERNAL_OBJECTS =
 
+network/libnetwork.a: network/CMakeFiles/network.dir/epoll.cpp.o
 network/libnetwork.a: network/CMakeFiles/network.dir/httpmanager.cpp.o
 network/libnetwork.a: network/CMakeFiles/network.dir/networkmanager.cpp.o
 network/libnetwork.a: network/CMakeFiles/network.dir/tcpsocket.cpp.o
 network/libnetwork.a: network/CMakeFiles/network.dir/build.make
 network/libnetwork.a: network/CMakeFiles/network.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/xsl/Desktop/IM-Server01/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX static library libnetwork.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/xsl/Desktop/IM-Server01/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX static library libnetwork.a"
 	cd /home/xsl/Desktop/IM-Server01/build/network && $(CMAKE_COMMAND) -P CMakeFiles/network.dir/cmake_clean_target.cmake
 	cd /home/xsl/Desktop/IM-Server01/build/network && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/network.dir/link.txt --verbose=$(VERBOSE)
 

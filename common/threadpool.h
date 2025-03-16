@@ -15,24 +15,15 @@ public:
     ThreadPool(size_t numThreads);
     ~ThreadPool();
 
-    // 提交任务到线程池
-    template<class F, class... Args>
-    auto enqueue(F&& f, Args&&... args) -> std::future<typename std::result_of<F(Args...)>::type>;
+    void enqueue(std::function<void()> task);
 
-    // 获取线程池中线程的数量
     size_t getThreadCount() const;
-
 private:
-    // 工作线程
-    std::vector<std::thread> workers;
-
-    // 任务队列
-    std::queue<std::function<void()>> tasks;
-
-    // 同步
-    std::mutex queueMutex;
-    std::condition_variable condition;
-    std::atomic<bool> stop;
+    std::vector<std::thread> _workers;
+    std::queue<std::function<void()>> _tasks;
+    std::mutex _queueMutex;
+    std::condition_variable _condition;
+    std::atomic<bool> _stop;
 };
 
 

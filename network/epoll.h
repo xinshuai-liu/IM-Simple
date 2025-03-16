@@ -1,5 +1,4 @@
 #include <iostream>
-#include <vector>
 #include <functional>
 #include <sys/epoll.h>
 #include <unistd.h>
@@ -7,23 +6,26 @@
 #include <stdexcept>
 #include <memory>
 #include <string.h>
+#include <unordered_map>
 
-class Epoll {
+#include "../common/threadpool.h"
+#include "tcpsocket.h"
+
+class Epoll : public TcpSocket {
 public:
-
-    using Callback = std::function<void(int, uint32_t)>;
-
     Epoll();
-
     ~Epoll();
 
-    void add(int fd, uint32_t event, const Callback& callback);
+    void monitor(const std::string& ip, int port);
 
+    void add(int fd, uint32_t event);
     void modify(int fd, uint32_t event);
-
     void remove(int fd);
 
-    void run(int timeout = -1);
+    void run(bool flag = true, int timeout = -1);
+
+    void managerHandler(uint32_t event);
+    void workHandler(int fd, uint32_t event);
 
     // 禁用拷贝构造函数和拷贝赋值运算符
     Epoll(const Epoll&) = delete;
@@ -51,9 +53,13 @@ public:
         return _instance;
     }
 
-
+    void setRecvEventHandler(std::function<void(std::string, int fd)> func) {
+        _recvEventHandler = func;
+    }
 private:
-    static const int MAX_EVENTS = 64; // 每次处理的最大事件数
+    static const int MAX_EVENTS = 128; // 每次处理的最大事件数
     int _instance; // epoll 文件描述符
-    std::unordered_map<int, Callback> _callbacks; // 文件描述符到回调函数的映射
+    std::string* _data;
+    std::function<void(std::string, int fd)> _recvEventHandler;
+    std::function<void(std::string)> _sendEventHandler;
 };

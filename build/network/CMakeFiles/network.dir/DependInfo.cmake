@@ -8,6 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/home/xsl/Desktop/IM-Server01/network/epoll.cpp" "network/CMakeFiles/network.dir/epoll.cpp.o" "gcc" "network/CMakeFiles/network.dir/epoll.cpp.o.d"
   "/home/xsl/Desktop/IM-Server01/network/httpmanager.cpp" "network/CMakeFiles/network.dir/httpmanager.cpp.o" "gcc" "network/CMakeFiles/network.dir/httpmanager.cpp.o.d"
   "/home/xsl/Desktop/IM-Server01/network/networkmanager.cpp" "network/CMakeFiles/network.dir/networkmanager.cpp.o" "gcc" "network/CMakeFiles/network.dir/networkmanager.cpp.o.d"
   "/home/xsl/Desktop/IM-Server01/network/tcpsocket.cpp" "network/CMakeFiles/network.dir/tcpsocket.cpp.o" "gcc" "network/CMakeFiles/network.dir/tcpsocket.cpp.o.d"
